@@ -16,9 +16,6 @@ public class Character_Demo {
         //Character ch = new Character('a');
         System.out.println("ch:" + ch);
 
-
-
-
         // public static boolean isUpperCase(char ch):判断给定的字符是否是大写字符
         System.out.println("是否是大写:" + Character.isUpperCase('A'));
         System.out.println("是否是大写:" + Character.isUpperCase('a'));
