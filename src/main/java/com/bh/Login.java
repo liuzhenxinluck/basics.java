@@ -29,17 +29,17 @@ public class Login {
                     if (username.contains("=")){
                         System.out.println("不可以使用特殊符号");
                     }else {
-                        user.setUsername(username);
+                        boolean falg2 =ud.login1(username);
+                        if (falg2) {
+                            user.setUsername(username);
+                            System.out.println("注册密码:");
+                            String password = sc.nextLine();
+                            user.setPassword(password);
+                        }else {
+                            System.out.println("用户名已经存在");
+                        }
                     }
-                    System.out.println("注册密码:");
-                    String password = sc.nextLine();
-                    user.setPassword(password);
-                    boolean falg2 =ud.login1(username);
-                    if (falg2){
-                        ud.register(user);
-                    }else {
-                        System.out.println("用户名已经存在");
-                    }
+
 
                     break;
                 case "2":

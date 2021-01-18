@@ -71,9 +71,13 @@ public class Dao implements UserDao {
         boolean falg = true;
         BufferedReader reader = null;
         reader = new BufferedReader(new FileReader(file));
-        if (username.equals(file.getName())){
+        String str =null;
+        while ((str = reader.readLine())!=null){
+            String[] strs = str.split("=");
+            if (username.equals(strs[0])){
             falg =false;
-
+            break;
+            }
         }
         return falg;
     }
