@@ -5,6 +5,8 @@ import com.bh.user.User;
 import java.io.*;
 
 public class Dao implements UserDao {
+
+    //文件的创建
     private  static File file = new File("d://b.txt");
     static {
         try {
@@ -41,9 +43,9 @@ public class Dao implements UserDao {
                 }
             }
         }
-
         return falg;
     }
+
 
     @Override
     public void register(User user) throws IOException {
@@ -53,6 +55,7 @@ public class Dao implements UserDao {
         bw = new BufferedWriter(new FileWriter(file,true));
         bw.write(user.getUsername()+"="+user.getPassword());
         bw.newLine();
+        bw.flush();
         } catch (IOException e) {
             System.out.println("注册失败!");
         }finally {
@@ -66,8 +69,9 @@ public class Dao implements UserDao {
         }
     }
 
+
     @Override
-    public boolean login1(String username) throws IOException {
+    public boolean verification(String username) throws IOException {
         boolean falg = true;
         BufferedReader reader = null;
         reader = new BufferedReader(new FileReader(file));
