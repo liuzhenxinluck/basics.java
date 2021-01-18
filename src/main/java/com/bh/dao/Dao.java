@@ -11,6 +11,8 @@ public class Dao implements UserDao {
     static {
         try {
             file.createNewFile();
+        }catch (FileNotFoundException fl){
+            System.out.println("文件不存在!");
         } catch (IOException e) {
             e.printStackTrace();
         }
@@ -19,13 +21,15 @@ public class Dao implements UserDao {
 
 
     @Override
-    public boolean isLogin(String username, String password) throws IOException {
-        BufferedReader read = null;
-        read = new BufferedReader(new FileReader(file));
+    public boolean isLogin(String username, String password) {
         boolean falg = false;
+        BufferedReader read = null;
         try {
+
+            read = new BufferedReader(new FileReader(file));
+
             String len = null;
-            while ((len = read.readLine()) != null){
+            while ((len = read.readLine()) != null){//
                 String[] str = len.split("=");
                 if (str[0].equals(username) && str[1].equals(password)){
                     falg = true;
@@ -38,6 +42,9 @@ public class Dao implements UserDao {
             if (read!=null){
                 try {
                     read.close();
+                }catch (FileNotFoundException fl){
+                    System.out.println("文件找不到!");
+
                 }catch (IOException io){
                     io.printStackTrace();
                 }
@@ -48,7 +55,7 @@ public class Dao implements UserDao {
 
 
     @Override
-    public void register(User user) throws IOException {
+    public void register(User user)  {
 
         BufferedWriter bw = null;
         try {
@@ -62,7 +69,10 @@ public class Dao implements UserDao {
             if (bw!=null){
                 try {
                     bw.close();
-                }catch (IOException io){
+                } catch (FileNotFoundException fl){
+                    System.out.println("文件不存在!");
+
+                } catch (IOException io){
                     io.printStackTrace();
                 }
             }
@@ -71,18 +81,37 @@ public class Dao implements UserDao {
 
 
     @Override
-    public boolean verification(String username) throws IOException {
+    public boolean verification(String username)  {
         boolean falg = true;
         BufferedReader reader = null;
-        reader = new BufferedReader(new FileReader(file));
-        String str =null;
-        while ((str = reader.readLine())!=null){
-            String[] strs = str.split("=");
-            if (username.equals(strs[0])){
-            falg =false;
-            break;
-            }
-        }
+   try {
+
+       reader = new BufferedReader(new FileReader(file));
+       String str =null;
+       while ((str = reader.readLine())!=null){
+           String[] strs = str.split("=");
+           if (username.equals(strs[0])){
+               falg =false;
+               break;
+           }
+       }
+   }catch (FileNotFoundException fl){
+       System.out.println("找不到文件!");
+   }catch (IOException io){
+       io.printStackTrace();
+   }finally {
+       if (reader!=null){
+           try {
+               reader.close();
+           } catch (FileNotFoundException fl){
+               System.out.println("文件不存在!");
+
+           } catch (IOException io){
+               io.printStackTrace();
+           }
+       }
+
+   }
         return falg;
     }
 }
