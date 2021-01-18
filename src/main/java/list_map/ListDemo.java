@@ -110,6 +110,11 @@ public class ListDemo {
         System.out.println(list);
 
 
+        List<String> list1 = new ArrayList<>();
+
+
+
+
 
 
 
